@@ -1,0 +1,154 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "L'API Pokemon",
+      "description": "Documentation de l'Api pokemons",
+      "version": "2.1.5"
+    },
+
+    "paths": {
+      "/api/pokemon/tous": {
+        "get": {
+          "summary": "Afficher tous les pokemons",
+          "description": "Get la liste pokemons d'une base de donnée",
+          "responses": {
+            "200": {
+              "description": "Tous les pokemon mis en liste"
+            }
+          }
+        }
+      },
+
+      "/api/pokemon/{id}": {
+        "get": {
+          "summary": "Voir un pokemon selon son ID",
+          "description": "Recupère dans la base de donnée, le pokémon avec l'ID fournit",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "l'ID du pokemon",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Le pokemon avec l'ID spécifier"
+            },
+            "404": {
+              "description": "Aucun pokemon n'est associé au ID"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Effacer un pokemon",
+          "description": "Supprimer un pokemon de la base de donnée",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "L'ID du pokemon supprimé",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Le pokemon a bien été supprimée"
+            },
+            "404": {
+              "description": "Le pokemon n'a pas été trouvé"
+            },
+            "500": {
+              "description": "Une erreur est survenu dans la base de donnée"
+            }
+          }
+        }
+      },
+
+
+      "/api/pokemon": {
+        "post": {
+          "summary": "Ajouter un nouveau pokemon",
+          "description": "Créer nouveau pokémon dans la base de donnée",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nom":              { "type": "string" },
+                    "type_primaire":    { "type": "string" },
+                    "type_secondaire":  { "type": "string" },
+                    "pv":               { "type": "integer" },
+                    "attaque":          { "type": "integer" },
+                    "defense":          { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Le pokémon a bien été rajouté!"
+            },
+            "500": {
+              "description": "Une erreur est survenu dans la base de donnée"
+            }
+          }
+        },
+        "put": {
+          "summary": "Mise a jour d'un pokemon",
+          "description": "Met à jour l'un des pokémon selon son ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "l'ID du pokemon à modifier",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ID":               { "type": "integer"},
+                    "nom":              { "type": "string" },
+                    "type_primaire":    { "type": "string" },
+                    "type_secondaire":  { "type": "string" },
+                    "pv":               { "type": "integer" },
+                    "attaque":          { "type": "integer" },
+                    "defense":          { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "La mise à jour du pokemon à marcher"
+            },
+            "404": {
+              "description": "Le pokemon n'a pas été trouvé"
+            },
+            "500": {
+              "description": "Une erreur est survenu dans la base de donnée"
+            }
+          }
+        }
+      }
+    }
+  }
+  
